@@ -2,8 +2,30 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
-#GET raw HTML from the site
+#import mechanize
+import re
+import mechanize
+
+#enter array of VIM numbers to scrape
+vim_num = [
+    "jfsjklfdjsklafj",
+    "jfklsjkfldsjklfj",
+    "hslkdksajdklssjak"
+]
+
+#page url
 url = 'http://ethans_fake_twitter_site.surge.sh/'
+
+#handle the form
+browser.open('http://example.com/form/')
+browser.select_form(name='the_form')
+browser['field1'] = 'value'
+browser['field2'] = 'value'
+browser['field3'] = 'value'
+browser.submit()
+
+#GET raw HTML from the site
+
 response = requests.get(url, timeout=5)
 content = BeautifulSoup(response.content, "html.parser")
 
