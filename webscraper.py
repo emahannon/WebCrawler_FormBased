@@ -4,11 +4,18 @@ import json
 import mechanicalsoup
 import argparse
 
-parser = argparse.ArgumentParser(description="Login to GitHub.")
-parser.add_argument("username")
-args = parser.parse_args()
 
-args.password = getpass("Please enter your GitHub password: ")
+parser = argparse.ArgumentParser(description='Returns a json file of scraped website.')
+parser.add_argument("-s", "--string", metavar='N', type=str,help='a VIM number')
+ 
+args = parser.parse_args()
+print(str(args.string))
+
+#parser = argparse.ArgumentParser(description="Login to GitHub.")
+#parser.add_argument(sys.argv[1])
+#args = parser.parse_args()
+
+#args.password = getpass("Please enter your GitHub password: ")
 
 #create a browser object
 browser = mechanicalsoup.StatefulBrowser()
