@@ -1,28 +1,26 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import mechanicalsoup
+import argparse
 
-#import mechanize
-import re
-import mechanize
+parser = argparse.ArgumentParser(description="Login to GitHub.")
+parser.add_argument("username")
+args = parser.parse_args()
 
-#enter array of VIM numbers to scrape
-vim_num = [
-    "jfsjklfdjsklafj",
-    "jfklsjkfldsjklfj",
-    "hslkdksajdklssjak"
-]
+args.password = getpass("Please enter your GitHub password: ")
+
+#create a browser object
+browser = mechanicalsoup.StatefulBrowser()
 
 #page url
 url = 'http://ethans_fake_twitter_site.surge.sh/'
 
 #handle the form
-browser.open('http://example.com/form/')
-browser.select_form(name='the_form')
-browser['field1'] = 'value'
-browser['field2'] = 'value'
-browser['field3'] = 'value'
-browser.submit()
+browser.open(url)
+browser.select_form(selector="PLACEHOLDER_CSS_SELECTOR") #CSS selector or a bs4.element.Tag object to identify the form to select. If not specified, selector defaults to “form”, which is useful if, e.g., 
+browser["FORM ENTRY TITLE"] = args.username
+resp = browser.submit_selected()
 
 #GET raw HTML from the site
 
