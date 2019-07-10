@@ -4,55 +4,63 @@ import json
 import mechanicalsoup
 import argparse
 
+headers = {
+    "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36"
+
+}
 
 parser = argparse.ArgumentParser(description='Returns a json file of scraped website.')
-parser.add_argument("-s", "--string", metavar='N', type=str,help='a VIM number')
+parser.add_argument("-s", "--string", metavar='N', type=str,help='a VIN number')
  
 args = parser.parse_args()
-print(str(args.string))
+#print(str(args.string)) #check that parser works
 
-#parser = argparse.ArgumentParser(description="Login to GitHub.")
-#parser.add_argument(sys.argv[1])
-#args = parser.parse_args()
-
-#args.password = getpass("Please enter your GitHub password: ")
+#set parsed input to variable
+vin_num = str(args.string)
 
 #create a browser object
 browser = mechanicalsoup.StatefulBrowser()
 
 #page url
-url = 'http://ethans_fake_twitter_site.surge.sh/'
+url = 'https://driving-tests.org/vin-decoder/'
 
 #handle the form
 browser.open(url)
-browser.select_form(selector="PLACEHOLDER_CSS_SELECTOR") #CSS selector or a bs4.element.Tag object to identify the form to select. If not specified, selector defaults to “form”, which is useful if, e.g., 
-browser["FORM ENTRY TITLE"] = args.username
+browser.select_form() #CSS selector or a bs4.element.Tag object to identify the form to select. If not specified, selector defaults to “form”, which is useful if, e.g., 
+browser["VIN"] = vin_num
+#browser["vin"] = vin_num
 resp = browser.submit_selected()
 
 #GET raw HTML from the site
 
-response = requests.get(url, timeout=5)
-content = BeautifulSoup(response.content, "html.parser")
+response = requests.get(url, timeout=5, headers=headers)
+#content = BeautifulSoup(response.content, "html.parser")
+content = browser.get_current_page()
+
 
 #isolate the content
-#tweet = content.find('div', class_="tweetcontainer")
+tweet = content.find_all('h1')
 
-tweetArr = []
+
+print(str(tweet)+ " YEET")
+
+contentArr = []
 
 #isolate the content for a specific tag and class
 #then find a specific tag and class for all instances of the content in the doc
-for tweet in content.find_all('div', class_="tweetcontainer"):
-    tweetObject = {
-        "author": tweet.find('h2', class_="author").text,
-        "date": tweet.find('h5', class_="dateTime").text,
-        "tweet": tweet.find('p', class_="content").text,
-        "likes": tweet.find('p', class_="likes").text,
-        "shares": tweet.find('p', class_="shares").text
+for things in content.find_all('section', class_="vin-report"):
+    contentObject = {
+        "year": things.find('span', class_="report-value", id="nhtsa-29").text,
+        "brand": things.find('span', class_="report-value", id="nhtsa-26").text,
+        "model": things.find('span', class_="report-value", id="nhtsa-28").text,
+        "VIN": things.find('span', id="vin_val").text,
+        
+        
     }
-    #print (tweetObject)
-    tweetArr.append(tweetObject)
+    print (contentObject)
+    contentArr.append(contentObject)
 
 #print(tweetArr)
 
-with open('twitterData.json', 'w') as outfile:
-    json.dump(tweetArr, outfile)
+with open('vinData.json', 'w') as outfile:
+    json.dump(contentArr, outfile)
