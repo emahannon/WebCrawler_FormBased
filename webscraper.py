@@ -6,7 +6,6 @@ import argparse
 
 headers = {
     "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36"
-
 }
 
 parser = argparse.ArgumentParser(description='Returns a json file of scraped website.')
@@ -27,9 +26,20 @@ url = 'https://driving-tests.org/vin-decoder/'
 #handle the form
 browser.open(url)
 browser.select_form() #CSS selector or a bs4.element.Tag object to identify the form to select. If not specified, selector defaults to “form”, which is useful if, e.g., 
+print()
+print("SUMMARY")
+print()
+browser.get_current_form().print_summary()
+print()
+print("VIN NUM: " + str(vin_num))
+print()
 browser["VIN"] = vin_num
+browser.launch_browser()
 #browser["vin"] = vin_num
 resp = browser.submit_selected()
+
+
+print(resp.text)
 
 #GET raw HTML from the site
 
