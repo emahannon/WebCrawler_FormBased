@@ -10,7 +10,7 @@ import argparse
 import json
 
 headers = {
-    "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36"
+    "User-Agent":"new user"
 }
 
 parser = argparse.ArgumentParser(description='Returns a json file of scraped website.')
@@ -24,15 +24,16 @@ vin_num = str(args.string)
 
 
 browser = webdriver.Chrome()
-browser.get('https://www.iseecars.com/vin')
+browser.get('https://driving-tests.org/vin-decoder/')
 #find form
-elem = browser.find_element_by_id("vin-field") #VIN by name
+elem = browser.find_element_by_name("VIN") #VIN by name #vin-field by id
 elem.clear() #clear form
 #fill in form
 elem.send_keys(vin_num)
 elem.send_keys(Keys.RETURN)
 #vin num XPath: //*[@id="vin_val"]
-vin_num_element = browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]/div[1]/div[1]').get_attribute('textContent')
+#vin_num_element = browser.find_element_by_class_name('id135_vntbl_col ').get_attribute('textContent')
+vin_num_element = browser.find_element_by_class_name('panel panel-info').get_attribute('textContent')
 #vin_num = vin_num_element.text
 
 
