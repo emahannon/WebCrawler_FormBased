@@ -40,10 +40,10 @@ elem.send_keys(vin_num)
 elem.send_keys(Keys.RETURN)
 #vin num XPath: //*[@id="vin_val"]
 #vin_num_element = browser.find_element_by_class_name('id135_vntbl_col ').get_attribute('textContent')
-key_specs = browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]').get_attribute('textContent')
+key_specs = " " #browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]').get_attribute('textContent')
 #vin_num = vin_num_element.text
 
-safety_ratings = browser.find_element_by_class_name('//*[@id="vin-safety-panel"]/div').get_attribute('style') #get the style width
+safety_ratings = " " #browser.find_element_by_class_name('//*[@id="vin-safety-panel"]/div').get_attribute('style') #get the style width
 
 
 features = browser.find_element_by_xpath('//*[@id="vin-features-panel"]/div[2]/div/div[2]/div').get_attribute('textContent') #//*[@id="vin-features-panel"]/div[2]/div/div[2]/div
@@ -58,7 +58,7 @@ car_comparison = browser.find_element_by_xpath('//*[@id="vin-similar-panel"]').g
 time_to_buy = browser.find_element_by_xpath('//*[@id="vin-besttimetobuy-panel"]').get_attribute('textContent') #//*[@id="vin-besttimetobuy-panel"]
 selling_vehicle = browser.find_element_by_xpath('/html/body/div[2]/div[17]').get_attribute('textContent') #/html/body/div[2]/div[17]
 # get href link VVVVV
-owner_manual = browser.find_element_by_id('//*[@id="vin-manuals-panel"]') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
+owner_manual = " " #browser.find_element_by_id('//*[@id="vin-manuals-panel"]') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
 
 
 print(key_specs)
@@ -78,7 +78,7 @@ contentObject = {
         "Projected Depreciation": projected_depreciation,
         "Similar Car Comparison": car_comparison,
         "Best Times To Buy": time_to_buy,
-        #"Selling This Vehicle": selling_vehicle,
+        "Selling This Vehicle": selling_vehicle,
         "Owner's Manual": owner_manual
     }
 print (contentObject)
