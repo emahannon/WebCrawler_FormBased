@@ -10,7 +10,7 @@ import argparse
 import json
 
 headers = {
-    "User-Agent":"new user"
+    "User-Agent":"just a user"
 }
 
 parser = argparse.ArgumentParser(description='Returns a json file of scraped website.')
@@ -24,26 +24,26 @@ vin_num = str(args.string)
 
 
 browser = webdriver.Chrome()
-browser.get('https://driving-tests.org/vin-decoder/')
+browser.get('https://www.iseecars.com/vin')
 #find form
-elem = browser.find_element_by_name("VIN") #VIN by name #vin-field by id
+elem = browser.find_element_by_id("vin-field") #VIN by name #vin-field by id
 elem.clear() #clear form
 #fill in form
 elem.send_keys(vin_num)
 elem.send_keys(Keys.RETURN)
 #vin num XPath: //*[@id="vin_val"]
 #vin_num_element = browser.find_element_by_class_name('id135_vntbl_col ').get_attribute('textContent')
-key_specs = browser.find_element_by_class_name('//*[@id="vin-basicspecs-panel"]/div[1]').get_attribute('textContent')
+key_specs = browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]/div[1]').get_attribute('textContent')
 #vin_num = vin_num_element.text
 
-safety_ratings = browser.find_element_by_class_name('panel panel-info').get_attribute('textContent') #get the style width
+safety_ratings = browser.find_element_by_class_name('stars-sprite-bottom-img').get_attribute('style') #get the style width
 
 
 features = browser.find_element_by_xpath('//*[@id="vin-features-panel"]/div[2]/div/div[2]/div').get_attribute('textContent') #//*[@id="vin-features-panel"]/div[2]/div/div[2]/div
 market_pricing = browser.find_element_by_xpath('//*[@id="vin-price-panel"]/table').get_attribute('textContent') #//*[@id="vin-price-panel"]/table
 mileage_analysis = browser.find_element_by_xpath('//*[@id="vin-condition-panel"]').get_attribute('textContent') #//*[@id="vin-condition-panel"]
 # get href link VVV
-recall_check = browser.find_element_by_xpath('panel panel-info').get_attribute('href') #//*[@id="vin-carfax-panel"] #get the href link
+recall_check = browser.find_element_by_xpath('//*[@id="vin-carfax-panel"]').get_attribute('href') #//*[@id="vin-carfax-panel"] #get the href link
 days_listed = browser.find_element_by_xpath('//*[@id="vin-dom-panel"]/table').get_attribute('textContent') #//*[@id="vin-dom-panel"]/table
 listing_history = browser.find_element_by_xpath('//*[@id="vin-history-panel"]').get_attribute('textContent') #//*[@id="vin-history-panel"]
 projected_depreciation = browser.find_element_by_xpath('//*[@id="vin-deprication-panel"]').get_attribute('textContent') #//*[@id="vin-deprication-panel"]
@@ -51,9 +51,9 @@ car_comparison = browser.find_element_by_xpath('//*[@id="vin-similar-panel"]').g
 time_to_buy = browser.find_element_by_xpath('//*[@id="vin-besttimetobuy-panel"]').get_attribute('textContent') #//*[@id="vin-besttimetobuy-panel"]
 selling_vehicle = browser.find_element_by_xpath('/html/body/div[2]/div[17]').get_attribute('textContent') #/html/body/div[2]/div[17]
 # get href link VVVVV
-owner_manual = browser.find_element_by_xpath('panel panel-info').get_attribute('href') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
+#owner_manual = browser.find_element_by_id('vin-manuals-panel').get_attribute('textContent') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
 
-
+owner_manual = " "
 
 print(key_specs)
 print()
