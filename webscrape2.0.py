@@ -9,6 +9,21 @@ from selenium.webdriver.common.keys import Keys
 import argparse
 import json
 
+
+#http_proxy  = "ip_addr:port"
+#https_proxy = "ip_addr:port"
+
+#webdriver.DesiredCapabilities.CHROME['proxy']={
+    #"httpProxy":http_proxy,
+    #"sslProxy":https_proxy,
+    #"proxyType":"MANUAL"
+#}
+
+
+
+
+
+#ACTUAL SCRAPING
 headers = {
     "User-Agent":"just a user"
 }
@@ -51,7 +66,7 @@ car_comparison = browser.find_element_by_xpath('//*[@id="vin-similar-panel"]').g
 time_to_buy = browser.find_element_by_xpath('//*[@id="vin-besttimetobuy-panel"]').get_attribute('textContent') #//*[@id="vin-besttimetobuy-panel"]
 selling_vehicle = browser.find_element_by_xpath('/html/body/div[2]/div[17]').get_attribute('textContent') #/html/body/div[2]/div[17]
 # get href link VVVVV
-#owner_manual = browser.find_element_by_id('vin-manuals-panel').get_attribute('textContent') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
+owner_manual = browser.find_element_by_id('vin-manuals-panel') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
 
 owner_manual = " "
 
