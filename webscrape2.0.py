@@ -9,18 +9,10 @@ from selenium.webdriver.common.keys import Keys
 import argparse
 import json
 
+PROXY = "158.69.104.193:1080" # IP:PORT or HOST:PORT
 
-#http_proxy  = "ip_addr:port"
-#https_proxy = "ip_addr:port"
-
-#webdriver.DesiredCapabilities.CHROME['proxy']={
-    #"httpProxy":http_proxy,
-    #"sslProxy":https_proxy,
-    #"proxyType":"MANUAL"
-#}
-
-
-
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--proxy-server=%s' % PROXY)
 
 
 #ACTUAL SCRAPING
@@ -38,7 +30,7 @@ args = parser.parse_args()
 vin_num = str(args.string)
 
 
-browser = webdriver.Chrome()
+browser = webdriver.Chrome(options=chrome_options)
 browser.get('https://www.iseecars.com/vin')
 #find form
 elem = browser.find_element_by_id("vin-field") #VIN by name #vin-field by id
@@ -48,10 +40,10 @@ elem.send_keys(vin_num)
 elem.send_keys(Keys.RETURN)
 #vin num XPath: //*[@id="vin_val"]
 #vin_num_element = browser.find_element_by_class_name('id135_vntbl_col ').get_attribute('textContent')
-key_specs = browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]/div[1]').get_attribute('textContent')
+key_specs = " " #browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]/div[1]').get_attribute('textContent')
 #vin_num = vin_num_element.text
 
-safety_ratings = browser.find_element_by_class_name('stars-sprite-bottom-img').get_attribute('style') #get the style width
+safety_ratings = " " #browser.find_element_by_class_name('stars-sprite-bottom-img').get_attribute('style') #get the style width
 
 
 features = browser.find_element_by_xpath('//*[@id="vin-features-panel"]/div[2]/div/div[2]/div').get_attribute('textContent') #//*[@id="vin-features-panel"]/div[2]/div/div[2]/div
@@ -87,7 +79,7 @@ contentObject = {
         "Projected Depreciation": projected_depreciation,
         "Similar Car Comparison": car_comparison,
         "Best Times To Buy": time_to_buy,
-        "Selling This Vehicle": selling_vehicle,
+        #"Selling This Vehicle": selling_vehicle,
         "Owner's Manual": owner_manual
     }
 print (contentObject)
