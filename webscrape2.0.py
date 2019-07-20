@@ -9,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 import argparse
 import json
 
-PROXY = "158.69.104.193:1080" # IP:PORT or HOST:PORT
+PROXY = "194.187.216.228:53281" # IP:PORT or HOST:PORT
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--proxy-server=%s' % PROXY)
@@ -17,7 +17,7 @@ chrome_options.add_argument('--proxy-server=%s' % PROXY)
 
 #ACTUAL SCRAPING
 headers = {
-    "User-Agent":"just a user"
+    "User-Agent":"this is a user"
 }
 
 parser = argparse.ArgumentParser(description='Returns a json file of scraped website.')
@@ -40,10 +40,10 @@ elem.send_keys(vin_num)
 elem.send_keys(Keys.RETURN)
 #vin num XPath: //*[@id="vin_val"]
 #vin_num_element = browser.find_element_by_class_name('id135_vntbl_col ').get_attribute('textContent')
-key_specs = " " #browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]/div[1]').get_attribute('textContent')
+key_specs = browser.find_element_by_xpath('//*[@id="vin-basicspecs-panel"]').get_attribute('textContent')
 #vin_num = vin_num_element.text
 
-safety_ratings = " " #browser.find_element_by_class_name('stars-sprite-bottom-img').get_attribute('style') #get the style width
+safety_ratings = browser.find_element_by_class_name('//*[@id="vin-safety-panel"]/div').get_attribute('style') #get the style width
 
 
 features = browser.find_element_by_xpath('//*[@id="vin-features-panel"]/div[2]/div/div[2]/div').get_attribute('textContent') #//*[@id="vin-features-panel"]/div[2]/div/div[2]/div
@@ -58,9 +58,8 @@ car_comparison = browser.find_element_by_xpath('//*[@id="vin-similar-panel"]').g
 time_to_buy = browser.find_element_by_xpath('//*[@id="vin-besttimetobuy-panel"]').get_attribute('textContent') #//*[@id="vin-besttimetobuy-panel"]
 selling_vehicle = browser.find_element_by_xpath('/html/body/div[2]/div[17]').get_attribute('textContent') #/html/body/div[2]/div[17]
 # get href link VVVVV
-owner_manual = browser.find_element_by_id('vin-manuals-panel') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
+owner_manual = browser.find_element_by_id('//*[@id="vin-manuals-panel"]') #//*[@id="vin-manuals-panel"]/div[1]/a #get the href link
 
-owner_manual = " "
 
 print(key_specs)
 print()
